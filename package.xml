@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<package format="2">
+
+  <name>siyi_camera_plugin</name>
+  <version>1.0.0</version>
+  <description>
+    A ROS package that provides a plugin for controlling Siyi camera gimbals. This plugin is designed to be used by the mission handler package for executing subtasks during missions.
+  </description>
+
+  <author email="cychitivav@unal.edu.co">Cristian Chitiva</author>
+  <maintainer email="cychitivav@unal.edu.co">Cristian Chitiva</maintainer>
+
+  <license>MIT</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>pluginlib</depend>
+  <depend>roscpp</depend>
+  <depend>cmake_modules</depend>
+  <depend>mrs_lib</depend>
+  <depend>iroc_mission_handler</depend>
+  <depend>siyi_cam_driver</depend>
+
+  <export>
+    <iroc_mission_handler plugin="${prefix}/plugins.xml" />
+  </export>
+</package>
