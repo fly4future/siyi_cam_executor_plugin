@@ -31,13 +31,13 @@ class SiyiGimbalExecutor : public iroc_mission_handler::SubtaskExecutor {
   bool checkCompletion(double& progress) override;
 
  private:
-  double _speed_tolerance = 0.01;
+  double _speed_tolerance_ = 0.01;
   double progress_ = 0.0;
   bool has_started_ = false;
   bool is_stopped_ = false;
 
-  std::vector<double> initial_angles_; // [yaw, pitch]
-  std::vector<double> goal_angles_;    // [yaw, pitch]
+  std::vector<double> initial_angles_; // [pitch, yaw]
+  std::vector<double> goal_angles_;    // [pitch, yaw]
 
   ros::ServiceClient sc_set_gimbal_control_;
   mrs_lib::SubscribeHandler<siyi_cam_driver::GimbalState> sh_current_state_;
