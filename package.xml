@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
 <package format="2">
 
-  <name>siyi_camera_plugin</name>
+  <name>siyi_cam_executor_plugin</name>
   <version>1.0.0</version>
   <description>
     A ROS package that provides a plugin for controlling Siyi camera gimbals. This plugin is designed to be used by the mission handler package for executing subtasks during missions.
   </description>
 
-  <author email="cychitivav@unal.edu.co">Cristian Chitiva</author>
-  <maintainer email="cychitivav@unal.edu.co">Cristian Chitiva</maintainer>
+  <author email="chitiva@fly4future.com">Cristian Chitiva</author>
+  <maintainer email="chitiva@fly4future.com">Cristian Chitiva</maintainer>
 
   <license>MIT</license>
 
