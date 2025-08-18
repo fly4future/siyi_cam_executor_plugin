@@ -31,7 +31,7 @@ protected:
   bool checkCompletion(double& progress) override;
 
 private:
-  double _speed_tolerance_ = 0.01;
+  double _speed_tolerance_ = 0.005;
   double progress_         = 0.0;
   bool has_started_        = false;
   bool is_stopped_         = false;

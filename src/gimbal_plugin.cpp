@@ -109,7 +109,6 @@ void SiyiGimbalExecutor::stateCallback(const siyi_cam_driver::GimbalState::Const
   // If gimbal is not moving, then it has reached the goal or a limit position
   if ((std::abs(msg->yaw_speed) < _speed_tolerance_ && std::abs(msg->pitch_speed) < _speed_tolerance_) || progress_ >= 0.98) {
     ROS_INFO("[SiyiGimbalExecutor]: Gimbal state matches has reached the goal angles or a limit position.");
-    progress_   = 1.0;
     is_stopped_ = true;
     sh_current_state_.stop(); // Stop receiving updates
   }
