@@ -19,22 +19,22 @@ namespace siyi_executor {
  *
  */
 class SiyiGimbalExecutor : public iroc_mission_handler::SubtaskExecutor {
- public:
-  SiyiGimbalExecutor() = default;
+public:
+  SiyiGimbalExecutor()          = default;
   virtual ~SiyiGimbalExecutor() = default;
 
   bool stop() override;
 
- protected:
+protected:
   bool initializeImpl(ros::NodeHandle& nh, const std::string& parameters) override;
   bool startImpl() override;
   bool checkCompletion(double& progress) override;
 
- private:
+private:
   double _speed_tolerance_ = 0.01;
-  double progress_ = 0.0;
-  bool has_started_ = false;
-  bool is_stopped_ = false;
+  double progress_         = 0.0;
+  bool has_started_        = false;
+  bool is_stopped_         = false;
 
   std::vector<double> initial_angles_; // [pitch, yaw]
   std::vector<double> goal_angles_;    // [pitch, yaw]

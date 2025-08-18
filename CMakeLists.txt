@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.15.0)
-project(siyi_camera_plugin)
+project(siyi_cam_executor_plugin)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
