@@ -14,7 +14,8 @@ bool SiyiGimbalExecutor::initializeImpl(ros::NodeHandle& nh, const std::string& 
   }
 
   param_loader.setPrefix("mission_handler/subtask_executors/siyi_camera");
-  // param_loader.loadParam("speed_tolerance", _speed_tolerance_);
+  param_loader.loadParam("speed_tolerance", _speed_tolerance_);
+  param_loader.loadParam("position_tolerance", _position_tolerance_);
 
   // Parse parameters
   if (!parseParams(parameters, goal_angles_)) {
@@ -23,10 +24,8 @@ bool SiyiGimbalExecutor::initializeImpl(ros::NodeHandle& nh, const std::string& 
   }
 
   // Validate gimbal parameters
-  if (goal_angles_.size() == 1) {
-    goal_angles_.push_back(0.0); // Default yaw if only yaw is provided
-  } else if (goal_angles_.size() != 2) {
-    ROS_ERROR("[SiyiGimbalExecutor]: Invalid parameters format, expected [<yaw>, <pitch>]");
+  if (goal_angles_.size() != 2) {
+    ROS_ERROR("[SiyiGimbalExecutor]: Invalid parameters format, expected [<pitch>, <yaw>]");
     return false;
   }
 
@@ -40,8 +39,8 @@ bool SiyiGimbalExecutor::initializeImpl(ros::NodeHandle& nh, const std::string& 
   sh_opts.queue_size         = 10;
   sh_opts.transport_hints    = ros::TransportHints().tcpNoDelay();
 
-  sh_current_state_ = mrs_lib::SubscribeHandler<siyi_cam_driver::GimbalState>(sh_opts, "/groundstation/gimbal/state", // Remapped
-                                                                              &SiyiGimbalExecutor::stateCallback, this);
+  sh_current_state_ = mrs_lib::SubscribeHandler<siyi_cam _driver::GimbalState>(sh_opts, "/groundstation/gimbal/state", // Remapped
+                                                                               &SiyiGimbalExecutor::stateCallback, this);
 
   // Initialize service client for gimbal control
   sc_set_gimbal_control_ = nh.serviceClient<siyi_cam_driver::GimbalControl>("/groundstation/gimbal/control");
@@ -106,17 +105,17 @@ void SiyiGimbalExecutor::stateCallback(const siyi_cam_driver::GimbalState::Const
   // Compute overall progress, clamp to [0, 1]
   progress_ = std::min((yaw_progress + pitch_progress) / 2.0, 1.0);
 
-  // If gimbal is not moving, then it has reached the goal or a limit position
-  if (std::abs(msg->yaw_speed) < _speed_tolerance_ && std::abs(msg->pitch_speed) < _speed_tolerance_) {
-    if (progress_ >= 0.98) {
-      progress_ = 1.0; // Ensure progress is exactly 1.0 when stopped
-      ROS_INFO("[SiyiGimbalExecutor]: Gimbal state has reached the goal angles.");
-    } else {
-      ROS_WARN("[SiyiGimbalExecutor]: Gimbal has reached a limit position.");
-    }
-
+  if (std::abs(msg->pitch - goal_angles_[0]) < _position_tolerance_ && std::abs(msg->yaw - goal_angles_[1]) < _position_tolerance_) {
+    ROS_INFO("[SiyiGimbalExecutor]: Gimbal state has reached the goal angles.");
+    progress_   = 1.0; // Ensure progress is exactly 1.0 when stopped
     is_stopped_ = true;
-    sh_current_state_.stop(); // Stop receiving updates
+    sh_current_state_.stop();
+  }
+
+  if (std::abs(msg->yaw_speed) < _speed_tolerance_ && std::abs(msg->pitch_speed) < _speed_tolerance_) {
+    ROS_WARN("[SiyiGimbalExecutor]: Gimbal has reached a limit position.");
+    is_stopped_ = true;
+    sh_current_state_.stop();
   }
 }
 } // namespace siyi_executor

@@ -31,10 +31,12 @@ protected:
   bool checkCompletion(double& progress) override;
 
 private:
-  double _speed_tolerance_ = 0.005;
-  double progress_         = 0.0;
-  bool has_started_        = false;
-  bool is_stopped_         = false;
+  double _speed_tolerance_    = 0.005;
+  double _position_tolerance_ = 0.1;
+
+  double progress_  = 0.0;
+  bool has_started_ = false;
+  bool is_stopped_  = false;
 
   std::vector<double> initial_angles_; // [pitch, yaw]
   std::vector<double> goal_angles_;    // [pitch, yaw]
