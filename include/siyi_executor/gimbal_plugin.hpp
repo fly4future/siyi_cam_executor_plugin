@@ -5,7 +5,7 @@
 #include <siyi_cam_driver/GimbalControl.h>
 #include <siyi_cam_driver/GimbalState.h>
 
-#include "iroc_mission_handler/subtask_executor_interface.h"
+#include <iroc_mission_handler/subtask_executor_interface.h>
 
 namespace siyi_executor {
 
