@@ -14,7 +14,7 @@ set(CATKIN_DEPENDENCIES
 )
 
 set(LIBRARIES
-  SiyiCameraPlugin
+  SiyiCamExecutorPlugin
 )
 
 find_package(catkin REQUIRED COMPONENTS
@@ -35,16 +35,16 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
 )
 
-add_library(SiyiCameraPlugin
+add_library(SiyiCamExecutorPlugin
   src/gimbal_plugin.cpp
 )
 
-add_dependencies(SiyiCameraPlugin
+add_dependencies(SiyiCamExecutorPlugin
   ${${PROJECT_NAME}_EXPORTED_TARGETS}
   ${catkin_EXPORTED_TARGETS}
 )
 
-target_link_libraries(SiyiCameraPlugin
+target_link_libraries(SiyiCamExecutorPlugin
   ${catkin_LIBRARIES}
   ${Eigen_LIBRARIES}
 )

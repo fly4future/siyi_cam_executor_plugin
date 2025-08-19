@@ -1,4 +1,4 @@
-<library path="lib/libSiyiCameraPlugin">
+<library path="lib/libSiyiCamExecutorPlugin">
   <class name="siyi_camera_plugin/SiyiGimbalExecutor" type="siyi_executor::SiyiGimbalExecutor" base_class_type="iroc_mission_handler::SubtaskExecutor">
     <description>This is SiyiGimbalExecutor for controlling Siyi camera gimbals.</description>
   </class>
