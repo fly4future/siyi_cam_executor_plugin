@@ -8,16 +8,17 @@ namespace siyi_executor {
 
 bool SiyiGimbalExecutor::initializeImpl(ros::NodeHandle& nh, const std::string& parameters) {
   mrs_lib::ParamLoader param_loader(nh, "SiyiGimbalExecutor");
-  param_loader.addYamlFileFromParam("executor_config");
-
+  
   // Load custom configuration if provided
   std::string custom_config_path;
   param_loader.loadParam("custom_config", custom_config_path);
   if (custom_config_path != "") {
     param_loader.addYamlFile(custom_config_path);
   }
-
-  param_loader.setPrefix("mission_handler/subtask_executors/siyi_camera");
+  
+  param_loader.addYamlFileFromParam("executor_config");
+  
+  param_loader.setPrefix("mission_handler/subtask_executors/siyi_camera/");
   param_loader.loadParam("speed_tolerance", _speed_tolerance_);
   param_loader.loadParam("position_tolerance", _position_tolerance_);
 
