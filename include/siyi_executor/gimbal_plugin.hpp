@@ -7,6 +7,10 @@
 
 #include <iroc_mission_handler/subtask_executor_interface.h>
 
+namespace iroc_mission_handler {
+
+namespace executors {
+
 namespace siyi_executor {
 
 /**
@@ -52,6 +56,8 @@ class SiyiGimbalExecutor : public iroc_mission_handler::SubtaskExecutor {
 };
 
 } // namespace siyi_executor
+} // namespace executors
+} // namespace iroc_mission_handler
 
 #include <pluginlib/class_list_macros.h>
-PLUGINLIB_EXPORT_CLASS(siyi_executor::SiyiGimbalExecutor, iroc_mission_handler::SubtaskExecutor)
+PLUGINLIB_EXPORT_CLASS(iroc_mission_handler::executors::siyi_executor::SiyiGimbalExecutor, iroc_mission_handler::SubtaskExecutor)

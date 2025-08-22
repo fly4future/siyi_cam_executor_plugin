@@ -1,5 +1,9 @@
 #include "siyi_executor/gimbal_plugin.hpp"
 
+namespace iroc_mission_handler {
+
+namespace executors {
+
 namespace siyi_executor {
 
 bool SiyiGimbalExecutor::initializeImpl(ros::NodeHandle& nh, const std::string& parameters) {
@@ -119,3 +123,7 @@ void SiyiGimbalExecutor::stateCallback(const siyi_cam_driver::GimbalState::Const
   }
 }
 } // namespace siyi_executor
+
+} // namespace executors
+
+} // namespace iroc_mission_handler
