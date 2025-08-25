@@ -44,7 +44,7 @@ bool SiyiGimbalExecutor::initializeImpl(ros::NodeHandle& nh, const std::string& 
   sh_opts.queue_size         = 10;
   sh_opts.transport_hints    = ros::TransportHints().tcpNoDelay();
 
-  sh_current_state_ = mrs_lib::SubscribeHandler<siyi_cam_driver::GimbalState>(sh_opts, "/groundstation/gimbal/state", // Remapped
+  sh_current_state_ = mrs_lib::SubscribeHandler<siyi_cam_driver::GimbalState>(sh_opts, "gimbal/state", // Remapped
                                                                               &SiyiGimbalExecutor::stateCallback, this);
 
   // Initialize service client for gimbal control
