@@ -16,8 +16,9 @@ bool SiyiGimbalExecutor::initializeImpl(ros::NodeHandle& nh, const std::string& 
     param_loader.addYamlFile(custom_config_path);
   }
 
+  param_loader.addYamlFile(ros::package::getPath("siyi_cam_executor_plugin") + "/config/config.yaml");
+
   const std::string yaml_prefix = "mission_handler/subtask_executors/siyi_camera/";
-  param_loader.addYamlFileFromParam(yaml_prefix + "config");
 
   param_loader.loadParam(yaml_prefix + "speed_tolerance", _speed_tolerance_);
   param_loader.loadParam(yaml_prefix + "position_tolerance", _position_tolerance_);
