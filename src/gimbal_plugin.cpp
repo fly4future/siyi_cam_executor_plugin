@@ -1,5 +1,7 @@
 #include "siyi_executor/gimbal_plugin.hpp"
 
+#include <ros/package.h>
+
 namespace iroc_mission_handler {
 
 namespace executors {
