@@ -1,4 +1,4 @@
 mission_handler:
   subtask_executors:
-    siyi_camera:
+    siyi_gimbal:
       speed_tolerance: 0.01 # [rad/s] - Tolerance for validating if the gimbal has reached a final position

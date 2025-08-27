@@ -33,6 +33,8 @@ class SiyiCameraExecutor : public iroc_mission_handler::SubtaskExecutor {
   bool checkCompletion(double& progress) override;
 
  private:
+  double _capture_wait_time_  = 0.0;
+
   double progress_  = 0.0;
   bool is_stopped_  = false;
 

@@ -1,0 +1,4 @@
+mission_handler:
+  subtask_executors:
+    siyi_camera:
+      capture_wait_time: 0.1 # [s] 

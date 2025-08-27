@@ -1,5 +1,7 @@
 #include "siyi_executor/camera_plugin.hpp"
 
+#include <ros/package.h>
+
 namespace iroc_mission_handler {
 
 namespace executors {
@@ -7,6 +9,20 @@ namespace executors {
 namespace siyi_executor {
 
 bool SiyiCameraExecutor::initializeImpl(ros::NodeHandle& nh, [[maybe_unused]] const std::string& parameters) {
+  mrs_lib::ParamLoader param_loader(nh, "SiyiCameraExecutor");
+  
+  // Load custom configuration if provided
+  std::string custom_config_path;
+  param_loader.loadParam("custom_config", custom_config_path);
+  if (custom_config_path != "") {
+    param_loader.addYamlFile(custom_config_path);
+  }
+
+  param_loader.addYamlFile(ros::package::getPath("siyi_cam_executor_plugin") + "/config/siyi_camera_config.yaml");
+
+  const std::string yaml_prefix = "mission_handler/subtask_executors/siyi_camera/";
+
+  param_loader.loadParam(yaml_prefix + "capture_wait_time", _capture_wait_time_);
 
   // Initialize service client for gimbal control
   sc_camera_capture_image_ = nh.serviceClient<siyi_cam_driver::Timestamp>("srv_capture_image_in");
@@ -28,6 +44,7 @@ bool SiyiCameraExecutor::startImpl() {
     return false;
   }
 
+  ros::Duration(_capture_wait_time_).sleep();
   ROS_INFO_STREAM("[SiyiCameraExecutor]: " << srv.response.message);
   progress_ = 1;
   is_stopped_ = true;
