@@ -37,6 +37,7 @@ include_directories(
 
 add_library(IROCMissionHandler_SiyiCamExecutorPlugin
   src/gimbal_plugin.cpp
+  src/camera_plugin.cpp
 )
 
 add_dependencies(IROCMissionHandler_SiyiCamExecutorPlugin
