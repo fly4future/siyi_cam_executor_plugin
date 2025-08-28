@@ -25,7 +25,8 @@ bool SiyiCameraExecutor::initializeImpl(ros::NodeHandle& nh, [[maybe_unused]] co
   param_loader.loadParam(yaml_prefix + "capture_wait_time", _capture_wait_time_);
 
   // Initialize service client for gimbal control
-  sc_camera_capture_image_ = nh.serviceClient<siyi_cam_driver::Timestamp>("srv_capture_image_in");
+  sc_camera_capture_image_ = nh.serviceClient<siyi_cam_driver::Timestamp>("svc/srv_capture_image_in");
+  ROS_INFO("[SiyiCameraExecutor]: Created ServiceClient on service \'svc/srv_capture_image_in\' -> \'%s\'", sc_camera_capture_image_.getService().c_str());
 
   ROS_DEBUG_STREAM("[SiyiCameraExecutor]: Initialized");
   return true;

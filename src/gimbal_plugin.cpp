@@ -40,18 +40,19 @@ bool SiyiGimbalExecutor::initializeImpl(ros::NodeHandle& nh, const std::string& 
   // Initialize subscriber
   mrs_lib::SubscribeHandlerOptions sh_opts;
   sh_opts.nh                 = nh;
-  sh_opts.node_name          = "MissionHandler";
+  sh_opts.node_name          = "SiyiGimbalExecutor";
   sh_opts.no_message_timeout = ros::Duration(5.0);
   sh_opts.threadsafe         = true;
   sh_opts.autostart          = false;
   sh_opts.queue_size         = 10;
   sh_opts.transport_hints    = ros::TransportHints().tcpNoDelay();
 
-  sh_current_state_ = mrs_lib::SubscribeHandler<siyi_cam_driver::GimbalState>(sh_opts, "gimbal/state", // Remapped
+  sh_current_state_ = mrs_lib::SubscribeHandler<siyi_cam_driver::GimbalState>(sh_opts, "in/gimbal/state",
                                                                               &SiyiGimbalExecutor::stateCallback, this);
 
   // Initialize service client for gimbal control
-  sc_set_gimbal_control_ = nh.serviceClient<siyi_cam_driver::GimbalControl>("/groundstation/gimbal/control");
+  sc_set_gimbal_control_ = nh.serviceClient<siyi_cam_driver::GimbalControl>("svc/gimbal/control");
+  ROS_INFO("[SiyiGimbalExecutor]: Created ServiceClient on service \'svc/gimbal/control\' -> \'%s\'", sc_set_gimbal_control_.getService().c_str());
 
   ROS_DEBUG_STREAM("[SiyiGimbalExecutor]: Initialized with yaw: " << goal_angles_[0] << ", pitch: " << goal_angles_[1]);
   return true;
